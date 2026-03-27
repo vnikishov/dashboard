@@ -4,52 +4,63 @@ import {
   ResponsiveContainer, ReferenceLine, Cell
 } from "recharts";
 
-// ── Excel report data ─────────────────────────────────────────────────────
+// ── Report data (Adapty campaigns only · Jan 1 – Mar 27, 2026) ────────────
 const OVERVIEW = {
-  totalSpend: "€55,122", installs: "12,184", roas: "1.01x",
-  roi: "+0.6%", cpInstall: "€4.52", payback: "27d", installRate: "47.6%",
+  totalSpend: "€66,021", installs: "14,839", roas: "0.52x",
+  roi: "-47.7%", cpInstall: "€4.45", payback: "27d", installRate: "14.7%",
   months: [
-    { month: "Jan 2026", spend: 16121, installs: 4491, revenue: 9095,  roas: 0.56, roi: -43.6, cpi: 3.59 },
-    { month: "Feb 2026", spend: 26111, installs: 7015, revenue: 27032, roas: 1.04, roi: 3.5,   cpi: 3.72 },
-    { month: "Mar 2026", spend: 12891, installs: 678,  revenue: 19350, roas: 1.50, roi: 50.1,  cpi: 19.01 },
+    { month: "Jan 2026", spend: 15617, installs: 4491, revenue: 227,  roas: 0.61, roi: -39.0, cpi: 3.48 },
+    { month: "Feb 2026", spend: 33728, installs: 7007, revenue: 3846, roas: 0.51, roi: -48.7, cpi: 4.81 },
+    { month: "Mar 2026", spend: 16675, installs: 3341, revenue: 883,  roas: 0.46, roi: -53.8, cpi: 4.99 },
   ],
 };
 
 const WEEKLY = [
-  { week: "Jan 1–7",    spend: 1347,  revenue: 0,       installs: 0,    ir: 0.0,   roas: 0.00, cpi: null   },
-  { week: "Jan 8–14",   spend: 2330,  revenue: 1168,    installs: 1101, ir: 61.8,  roas: 0.50, cpi: 2.12   },
-  { week: "Jan 15–21",  spend: 2782,  revenue: 1972,    installs: 829,  ir: 64.3,  roas: 0.71, cpi: 3.36   },
-  { week: "Jan 22–28",  spend: 4266,  revenue: 1972,    installs: 887,  ir: 37.7,  roas: 0.46, cpi: 4.81   },
-  { week: "Jan 29–F4",  spend: 5396,  revenue: 3983,    installs: 1674, ir: 57.3,  roas: 0.74, cpi: 3.22   },
-  { week: "Feb 5–11",   spend: 5144,  revenue: 5074,    installs: 1888, ir: 78.5,  roas: 0.99, cpi: 2.72   },
-  { week: "Feb 12–18",  spend: 10708, revenue: 7314,    installs: 1716, ir: 39.0,  roas: 0.68, cpi: 6.24   },
-  { week: "Feb 19–25",  spend: 7527,  revenue: 8112,    installs: 2237, ir: 91.9,  roas: 1.08, cpi: 3.36   },
-  { week: "Feb 26–M4",  spend: 2732,  revenue: 6532,    installs: 1174, ir: 108.7, roas: 2.39, cpi: 2.33   },
-  { week: "Mar 2–8",    spend: 6333,  revenue: 7945,    installs: 348,  ir: 12.3,  roas: 1.25, cpi: 18.20  },
-  { week: "Mar 9–15",   spend: 6558,  revenue: 11405,   installs: 330,  ir: 11.1,  roas: 1.74, cpi: 19.87  },
+  { week: "Jan 5–11",   spend: 2307,  revenue: 14,   installs: 1101, ir: 16.95, roas: 0.58, cpi: 2.10 },
+  { week: "Jan 12–18",  spend: 3448,  revenue: 62,   installs: 829,  ir: 16.54, roas: 0.58, cpi: 4.16 },
+  { week: "Jan 19–25",  spend: 4026,  revenue: 21,   installs: 887,  ir: 15.74, roas: 0.46, cpi: 4.54 },
+  { week: "Jan 26–F1",  spend: 5836,  revenue: 129,  installs: 1674, ir: 15.97, roas: 0.74, cpi: 3.49 },
+  { week: "Feb 2–8",    spend: 6424,  revenue: 391,  installs: 1888, ir: 18.53, roas: 0.63, cpi: 3.40 },
+  { week: "Feb 9–15",   spend: 8159,  revenue: 1152, installs: 1713, ir: 16.37, roas: 0.58, cpi: 4.76 },
+  { week: "Feb 16–22",  spend: 12746, revenue: 1324, installs: 2236, ir: 13.50, roas: 0.46, cpi: 5.70 },
+  { week: "Feb 23–M1",  spend: 6400,  revenue: 979,  installs: 1170, ir: 14.27, roas: 0.42, cpi: 5.47 },
+  { week: "Mar 2–8",    spend: 7360,  revenue: 214,  installs: 1495, ir: 15.82, roas: 0.41, cpi: 4.92 },
+  { week: "Mar 9–15",   spend: 5735,  revenue: 109,  installs: 1029, ir: 7.93,  roas: 0.49, cpi: 5.57 },
+  { week: "Mar 16–22",  spend: 2105,  revenue: 241,  installs: 435,  ir: 12.41, roas: 0.59, cpi: 4.84 },
+  { week: "Mar 23–27",  spend: 1476,  revenue: 319,  installs: 382,  ir: 18.41, roas: 0.44, cpi: 3.86 },
 ];
 
 const CAMPAIGN_TABLE = [
-  { name: "web-CPA_age35-54",         spend: 56,    installs: 33,  cpi: 1.70,  ir: 206.2, roas: 4.67, roi: 367.1, roi1d: 0.47, roi7d: 0.58, roi30d: 0.67, roiAct: 0.97, arpu: 16.16, decision: "scale" },
-  { name: "web2_age35-54_260226",      spend: 493,   installs: 301, cpi: 1.64,  ir: 85.3,  roas: 4.10, roi: 310.4, roi1d: 0.32, roi7d: 0.47, roi30d: 1.31, roiAct: 0.59, arpu: 8.01,  decision: "scale" },
-  { name: "FR_web-VO_broad_100226",    spend: 128,   installs: 63,  cpi: 2.04,  ir: 98.4,  roas: 3.57, roi: 257.2, roi1d: 0.75, roi7d: 1.34, roi30d: 1.55, roiAct: 1.11, arpu: 32.82, decision: "scale" },
-  { name: "web-VO_broad_260226",       spend: 480,   installs: 100, cpi: 4.80,  ir: 88.5,  roas: 2.62, roi: 162.4, roi1d: 0.25, roi7d: 0.40, roi30d: 0.47, roiAct: 0.61, arpu: 18.75, decision: "scale" },
-  { name: "web-VO_age35-54_090226",    spend: 3231,  installs: 720, cpi: 4.49,  ir: 79.8,  roas: 2.26, roi: 126.0, roi1d: 0.45, roi7d: 0.72, roi30d: 0.92, roiAct: 0.73, arpu: 369.84,decision: "scale" },
-  { name: "webABC-test_age35-54",      spend: 751,   installs: 154, cpi: 4.88,  ir: 43.4,  roas: 2.12, roi: 112.3, roi1d: 0.32, roi7d: 0.46, roi30d: 0.52, roiAct: 0.58, arpu: 12.59, decision: "scale" },
-  { name: "web2_age35-54_040326",      spend: 1203,  installs: 183, cpi: 6.58,  ir: 26.8,  roas: 1.84, roi: 84.1,  roi1d: 0.40, roi7d: 0.60, roi30d: 0.63, roiAct: 0.65, arpu: 11.99, decision: "scale" },
-  { name: "web_age35-54_260226",       spend: 738,   installs: 253, cpi: 2.92,  ir: 77.6,  roas: 1.67, roi: 67.2,  roi1d: 0.28, roi7d: 0.41, roi30d: 0.47, roiAct: 0.42, arpu: 5.78,  decision: "scale" },
-  { name: "FR_web-VO_broad_170226",    spend: 260,   installs: 120, cpi: 2.16,  ir: 85.7,  roas: 1.58, roi: 57.6,  roi1d: 0.45, roi7d: 0.80, roi30d: 0.87, roiAct: 0.70, arpu: 13.81, decision: "scale" },
-  { name: "web_broad_140126",          spend: 3998,  installs: 1773,cpi: 2.26,  ir: 58.8,  roas: 1.48, roi: 48.5,  roi1d: 0.55, roi7d: 0.81, roi30d: 1.24, roiAct: 0.90, arpu: 109.50,decision: "scale" },
-  { name: "web-VO_broad_200126",       spend: 3716,  installs: 938, cpi: 3.96,  ir: 70.8,  roas: 1.48, roi: 48.0,  roi1d: 0.48, roi7d: 0.69, roi30d: 1.08, roiAct: 0.73, arpu: 176.80,decision: "scale" },
-  { name: "web-VO_broad_060226",       spend: 7257,  installs: 1213,cpi: 5.98,  ir: 79.9,  roas: 1.31, roi: 31.3,  roi1d: 0.30, roi7d: 0.45, roi30d: 0.63, roiAct: 0.59, arpu: 6.72,  decision: "scale" },
-  { name: "web3Short_age35-54",        spend: 783,   installs: 120, cpi: 6.53,  ir: 28.8,  roas: 1.14, roi: 13.5,  roi1d: 0.26, roi7d: 0.41, roi30d: 0.43, roiAct: 0.33, arpu: 41.16, decision: "watch" },
-  { name: "web_age35-54_290126",       spend: 9055,  installs: 2955,cpi: 3.06,  ir: 62.2,  roas: 1.04, roi: 4.0,   roi1d: 0.45, roi7d: 0.64, roi30d: 0.81, roiAct: 0.71, arpu: 2.58,  decision: "watch" },
-  { name: "web_LAL1_1gPurch_270126",   spend: 728,   installs: 178, cpi: 4.09,  ir: 59.3,  roas: 1.09, roi: 9.4,   roi1d: 0.36, roi7d: 0.54, roi30d: 0.68, roiAct: 0.77, arpu: 4.80,  decision: "watch" },
-  { name: "FR_web-VO_broad_060226",    spend: 533,   installs: 178, cpi: 3.00,  ir: 100.6, roas: 1.10, roi: 9.8,   roi1d: 1.72, roi7d: 2.52, roi30d: 2.56, roiAct: 7.41, arpu: 14.08, decision: "watch" },
-  { name: "FR_web_broad_040226",       spend: 611,   installs: 530, cpi: 1.15,  ir: 76.7,  roas: 0.86, roi: -14.1, roi1d: 0.43, roi7d: 0.60, roi30d: 0.71, roiAct: 0.73, arpu: 1.08,  decision: "pause" },
-  { name: "web_broad_010126",          spend: 1909,  installs: 866, cpi: 2.20,  ir: 54.6,  roas: 0.76, roi: -23.7, roi1d: 0.36, roi7d: 0.58, roi30d: 0.79, roiAct: 0.60, arpu: 2.07,  decision: "pause" },
-  { name: "web2-VO_broad_120226",      spend: 1360,  installs: 80,  cpi: 17.00, ir: 16.2,  roas: 0.43, roi: -57.2, roi1d: 0.15, roi7d: 0.27, roi30d: 0.30, roiAct: 0.28, arpu: 4.95,  decision: "pause" },
-  { name: "web2_age35-54_120226",      spend: 1390,  installs: 140, cpi: 9.93,  ir: 13.4,  roas: 0.28, roi: -71.6, roi1d: 0.13, roi7d: 0.20, roi30d: 0.25, roiAct: 0.18, arpu: 2.14,  decision: "pause" },
+  { name: "FR_web-VO_broad_060226",          spend: 630,   installs: 178,  cpi: 3.54,  ir: 24.90, roas: 4.58,  roi: 357.8,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 16.34, arpu: 1.13,  decision: "scale" },
+  { name: "FR_web-VO_broad_100226",          spend: 153,   installs: 62,   cpi: 2.47,  ir: 28.70, roas: 1.34,  roi: 34.1,   roi1d: 0.01, roi7d: 0.10, roi30d: 0.10,  roiAct: 0.05,  arpu: 0.12,  decision: "scale" },
+  { name: "web_broad_010126",                spend: 1839,  installs: 866,  cpi: 2.12,  ir: 18.36, roas: 1.17,  roi: 16.9,   roi1d: 0.00, roi7d: 0.12, roi30d: 0.17,  roiAct: 0.11,  arpu: 0.05,  decision: "watch" },
+  { name: "web2_ABTest_age35-54_260326",     spend: 201,   installs: 140,  cpi: 1.44,  ir: 69.31, roas: 1.14,  roi: 14.4,   roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.00,  arpu: 0.00,  decision: "watch" },
+  { name: "AND_web_broad_030126",            spend: 1166,  installs: 574,  cpi: 2.03,  ir: 15.67, roas: 0.99,  roi: -1.3,   roi1d: 0.00, roi7d: 0.00, roi30d: 0.04,  roiAct: 0.01,  arpu: 0.03,  decision: "pause" },
+  { name: "web-CPA_age35-54_060326",         spend: 660,   installs: 110,  cpi: 6.00,  ir: 15.65, roas: 0.88,  roi: -12.3,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.00,  arpu: 0.00,  decision: "pause" },
+  { name: "FR_web-VO_broad_170226",          spend: 307,   installs: 118,  cpi: 2.60,  ir: 22.26, roas: 0.80,  roi: -19.8,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.00,  arpu: 0.00,  decision: "pause" },
+  { name: "web_broad_140126",                spend: 4714,  installs: 1771, cpi: 2.66,  ir: 15.44, roas: 0.76,  roi: -24.4,  roi1d: 0.02, roi7d: 0.02, roi30d: 0.05,  roiAct: 0.06,  arpu: 0.05,  decision: "pause" },
+  { name: "web-VO_age35-54_090226",          spend: 3832,  installs: 719,  cpi: 5.33,  ir: 20.73, roas: 0.71,  roi: -29.4,  roi1d: 0.03, roi7d: 0.15, roi30d: 0.26,  roiAct: 0.28,  arpu: 0.99,  decision: "pause" },
+  { name: "FR_web_broad_040226",             spend: 723,   installs: 530,  cpi: 1.36,  ir: 19.81, roas: 0.65,  roi: -35.5,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.09,  arpu: 0.04,  decision: "pause" },
+  { name: "web-VO_broad_200126",             spend: 4397,  installs: 936,  cpi: 4.70,  ir: 19.77, roas: 0.64,  roi: -35.9,  roi1d: 0.02, roi7d: 0.04, roi30d: 0.08,  roiAct: 0.07,  arpu: 0.22,  decision: "pause" },
+  { name: "web2_age35-54_260226",            spend: 1935,  installs: 429,  cpi: 4.51,  ir: 14.34, roas: 0.60,  roi: -40.4,  roi1d: 0.00, roi7d: 0.01, roi30d: 0.02,  roiAct: 0.09,  arpu: 0.15,  decision: "pause" },
+  { name: "web_broad_230126-2",              spend: 730,   installs: 258,  cpi: 2.83,  ir: 14.24, roas: 0.55,  roi: -44.7,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.00,  arpu: 0.00,  decision: "pause" },
+  { name: "webABC-test_age35-54_040326",     spend: 3257,  installs: 702,  cpi: 4.64,  ir: 16.86, roas: 0.50,  roi: -49.7,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.04,  arpu: 0.08,  decision: "pause" },
+  { name: "web_age35-54_260226",             spend: 1951,  installs: 484,  cpi: 4.03,  ir: 17.24, roas: 0.48,  roi: -51.6,  roi1d: 0.00, roi7d: 0.04, roi30d: 0.05,  roiAct: 0.02,  arpu: 0.05,  decision: "pause" },
+  { name: "web_age35-54_290126",             spend: 10708, installs: 2955, cpi: 3.62,  ir: 15.17, roas: 0.48,  roi: -52.1,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.01,  roiAct: 0.11,  arpu: 0.23,  decision: "pause" },
+  { name: "web_LAL1_1gPurch_270126",         spend: 866,   installs: 178,  cpi: 4.86,  ir: 16.78, roas: 0.47,  roi: -53.4,  roi1d: 0.00, roi7d: 0.57, roi30d: 1.31,  roiAct: 0.35,  arpu: 0.40,  decision: "pause" },
+  { name: "web2-VO_broad_120226",            spend: 1613,  installs: 80,   cpi: 20.16, ir: 5.32,  roas: 0.46,  roi: -54.2,  roi1d: 0.00, roi7d: 0.03, roi30d: 0.04,  roiAct: 0.04,  arpu: 0.39,  decision: "pause" },
+  { name: "web-VO_LAL1_1gPurch_040226",      spend: 443,   installs: 64,   cpi: 6.92,  ir: 23.62, roas: 0.42,  roi: -57.9,  roi1d: 0.02, roi7d: 0.02, roi30d: 0.90,  roiAct: 0.02,  arpu: 0.14,  decision: "pause" },
+  { name: "web3Short_age35-54_060326",       spend: 2134,  installs: 389,  cpi: 5.49,  ir: 13.35, roas: 0.41,  roi: -58.9,  roi1d: 0.00, roi7d: 0.02, roi30d: 0.08,  roiAct: 0.02,  arpu: 0.09,  decision: "pause" },
+  { name: "web2CPA[install]_age35-54_180326",spend: 944,   installs: 172,  cpi: 5.49,  ir: 12.34, roas: 0.40,  roi: -59.8,  roi1d: 0.09, roi7d: 0.10, roi30d: 0.10,  roiAct: 0.10,  arpu: 0.25,  decision: "pause" },
+  { name: "web_LAL1-whales50_280126",        spend: 746,   installs: 171,  cpi: 4.36,  ir: 19.54, roas: 0.39,  roi: -61.2,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.07,  arpu: 0.07,  decision: "pause" },
+  { name: "web-VO_broad_260226",             spend: 1398,  installs: 164,  cpi: 8.52,  ir: 11.61, roas: 0.33,  roi: -67.4,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.01,  roiAct: 0.20,  arpu: 0.77,  decision: "pause" },
+  { name: "web2_age35-54_040326",            spend: 5107,  installs: 1102, cpi: 4.63,  ir: 14.20, roas: 0.30,  roi: -70.5,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.33,  arpu: 0.49,  decision: "pause" },
+  { name: "web-VO_broad_060226",             spend: 8583,  installs: 1213, cpi: 7.08,  ir: 17.31, roas: 0.29,  roi: -70.6,  roi1d: 0.00, roi7d: 0.01, roi30d: 0.01,  roiAct: 0.54,  arpu: 1.59,  decision: "pause" },
+  { name: "web-VO_broad_040326",             spend: 535,   installs: 73,   cpi: 7.33,  ir: 14.78, roas: 0.26,  roi: -73.7,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.00,  arpu: 0.00,  decision: "pause" },
+  { name: "web2_age35-54_120226",            spend: 1647,  installs: 140,  cpi: 11.77, ir: 4.03,  roas: 0.24,  roi: -76.0,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.00,  arpu: 0.02,  decision: "pause" },
+  { name: "web3Short-CPA_090326",            spend: 1623,  installs: 118,  cpi: 13.76, ir: 1.67,  roas: 0.20,  roi: -80.5,  roi1d: 0.00, roi7d: 0.01, roi30d: 0.16,  roiAct: 0.01,  arpu: 0.18,  decision: "pause" },
+  { name: "web-Purchase_broad_120126",       spend: 1825,  installs: 141,  cpi: 12.95, ir: 9.59,  roas: 0.07,  roi: -92.7,  roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.00,  arpu: 0.02,  decision: "pause" },
+  { name: "FR_web-VO_broad_040226",          spend: 39,    installs: 2,    cpi: 19.63, ir: 9.52,  roas: 0.00,  roi: -100.0, roi1d: 0.00, roi7d: 0.00, roi30d: 0.00,  roiAct: 0.00,  arpu: 0.00,  decision: "pause" },
 ];
 
 
@@ -261,7 +272,7 @@ function OverviewPage() {
         {[
           { label:"Total Spend",    value:OVERVIEW.totalSpend, color:"#fb923c" },
           { label:"Installs",       value:OVERVIEW.installs,   color:"#38bdf8" },
-          { label:"ROAS",           value:OVERVIEW.roas,       color:"#4ade80" },
+          { label:"Ad ROI D7",      value:OVERVIEW.roas,       color:"#4ade80" },
           { label:"ROI",            value:OVERVIEW.roi,        color:"#4ade80" },
           { label:"CP Install",     value:OVERVIEW.cpInstall,  color:"#fbbf24" },
           { label:"Avg Payback",    value:OVERVIEW.payback,    color:"#a78bfa" },
@@ -276,7 +287,7 @@ function OverviewPage() {
 
       {/* Status banner */}
       <div style={{ background:"#1e2d45", border:"1px solid #fbbf2433", borderRadius:12, padding:"14px 20px", fontSize:13, color:"#fbbf24" }}>
-        ⚠️ Not yet profitable — ROAS 1.01x · ROI +0.6% · Target ≥ 1.2x · Jan 1 – Mar 15, 2026
+        ⚠️ Not yet profitable — Ad ROI D7 0.52x · ROI -47.7% · Target ≥ 1.2x · Jan 1 – Mar 27, 2026
       </div>
 
       {/* Monthly breakdown + ROAS chart side by side */}
@@ -286,7 +297,7 @@ function OverviewPage() {
           <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12 }}>
             <thead>
               <tr style={{ color:"#475569" }}>
-                {["Month","Spend","Installs","Revenue","ROAS","ROI%","CPI"].map(h => (
+                {["Month","Spend","Installs","Revenue","Ad ROI D7","ROI%","CPI"].map(h => (
                   <th key={h} style={{ textAlign:"right", paddingBottom:8, fontWeight:600, paddingRight:8 }}>{h}</th>
                 ))}
               </tr>
@@ -308,13 +319,13 @@ function OverviewPage() {
         </div>
 
         <div style={{ background:"#141b2d", border:"1px solid #1e2a3a", borderRadius:12, padding:"18px 20px" }}>
-          <div style={{ fontSize:12, color:"#4b5e75", fontWeight:700, textTransform:"uppercase", letterSpacing:1, marginBottom:14 }}>Monthly ROAS</div>
+          <div style={{ fontSize:12, color:"#4b5e75", fontWeight:700, textTransform:"uppercase", letterSpacing:1, marginBottom:14 }}>Monthly Ad ROI D7</div>
           <ResponsiveContainer width="100%" height={160}>
             <BarChart data={OVERVIEW.months} margin={{ top:4, right:4, left:-20, bottom:0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1a2535" vertical={false}/>
               <XAxis dataKey="month" tick={{ fill:"#4b5e75", fontSize:10 }} axisLine={false} tickLine={false}/>
               <YAxis tick={{ fill:"#4b5e75", fontSize:10 }} axisLine={false} tickLine={false} tickFormatter={v => v+"x"}/>
-              <Tooltip formatter={(v) => [`${v}x`, "ROAS"]} contentStyle={{ background:"#1a2234", border:"1px solid #2d3748", borderRadius:8, fontSize:12 }}/>
+              <Tooltip formatter={(v) => [`${v}x`, "Ad ROI D7"]} contentStyle={{ background:"#1a2234", border:"1px solid #2d3748", borderRadius:8, fontSize:12 }}/>
               <ReferenceLine y={1.2} stroke="#fbbf24" strokeDasharray="4 3" label={{ value:"Target 1.2x", fill:"#fbbf24", fontSize:10, position:"right" }}/>
               <Bar dataKey="roas" radius={[4,4,0,0]}>
                 {OVERVIEW.months.map((m,i) => <Cell key={i} fill={m.roas >= 1.2 ? "#4ade80" : m.roas >= 1.0 ? "#fbbf24" : "#f87171"}/>)}
@@ -331,7 +342,7 @@ function OverviewPage() {
           <table style={{ width:"100%", borderCollapse:"collapse", fontSize:11, whiteSpace:"nowrap" }}>
             <thead>
               <tr style={{ color:"#475569" }}>
-                {["Week","Spend","Revenue","Installs","Install Rate","CPI","ROAS"].map(h => (
+                {["Week","Spend","Revenue","Installs","Install Rate","CPI","Ad ROI D7"].map(h => (
                   <th key={h} style={{ textAlign:"right", paddingBottom:8, fontWeight:600, paddingRight:12 }}>{h}</th>
                 ))}
               </tr>
@@ -368,14 +379,14 @@ function CampaignsPage() {
     <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
       <div style={{ display:"flex", gap:4, alignItems:"center" }}>
         <span style={{ fontSize:11, color:"#4b5e75", marginRight:6 }}>Sort by:</span>
-        {sortBtn("roas","ROAS")} {sortBtn("roi","ROI%")} {sortBtn("installs","Installs")} {sortBtn("ir","Install Rate")} {sortBtn("arpu","ARPU")}
+        {sortBtn("roas","Ad ROI D7")} {sortBtn("roi","ROI%")} {sortBtn("installs","Installs")} {sortBtn("ir","Install Rate")} {sortBtn("arpu","ARPU")}
       </div>
       <div style={{ background:"#141b2d", border:"1px solid #1e2a3a", borderRadius:12, overflow:"hidden" }}>
         <div style={{ overflowX:"auto" }}>
           <table style={{ width:"100%", borderCollapse:"collapse", fontSize:11 }}>
             <thead>
               <tr style={{ background:"#0d1117", color:"#475569" }}>
-                {["Campaign","Spend","Installs","CPI","Install Rate","ROAS","ROI%","ROI 1d","ROI 7d","ROI 30d","ROI Act.","ARPU","Decision"].map(h => (
+                {["Campaign","Spend","Installs","CPI","Install Rate","Ad ROI D7","ROI%","ROI 1d","ROI 7d","ROI 14d","ROI Act.","ARPU","Decision"].map(h => (
                   <th key={h} style={{ textAlign:"right", padding:"10px 12px", fontWeight:600, whiteSpace:"nowrap", textAlign: h==="Campaign"||h==="Decision" ? "left" : "right" }}>{h}</th>
                 ))}
               </tr>
@@ -409,7 +420,7 @@ function CampaignsPage() {
           </table>
         </div>
       </div>
-      <div style={{ fontSize:11, color:"#2d3f55" }}>Jan 1 – Mar 15, 2026 · ROAS = Ad Revenue / Ad Spend · ROI Act. = lifetime return per cohort</div>
+      <div style={{ fontSize:11, color:"#2d3f55" }}>Jan 1 – Mar 27, 2026 · Ad ROI D7 = 7-day ad revenue / ad spend · ROI Act. = lifetime return per cohort</div>
     </div>
   );
 }
@@ -428,7 +439,7 @@ export default function App() {
         <div style={{ marginBottom:28 }}>
           <div style={{ fontSize:11, color:"#4ade80", fontWeight:700, letterSpacing:2, textTransform:"uppercase", marginBottom:8 }}>Scrambly · Unified Analytics</div>
           <h1 style={{ fontSize:28, fontWeight:800, margin:0, color:"#f1f5f9" }}>Ad Performance Dashboard</h1>
-          <p style={{ color:"#64748b", marginTop:8, fontSize:14, marginBottom:0 }}>Jan 1 – Mar 25, 2026 · All Adapty campaigns</p>
+          <p style={{ color:"#64748b", marginTop:8, fontSize:14, marginBottom:0 }}>Jan 1 – Mar 27, 2026 · All Adapty campaigns</p>
         </div>
 
         {/* Top-level tabs */}
